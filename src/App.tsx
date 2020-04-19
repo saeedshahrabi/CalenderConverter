@@ -1,26 +1,94 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Jafar } from "./app_input/jafar";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export class App extends Component {
+	state = {
+		// value:""
+		value: {
+			name: "",
+			lastname: "",
+			email: "",
+		},
+		validate: false,
+	};
+	//validate: false,
+
+	render() {
+		return (
+			<div className="container">
+				<div className="container shadow">
+					<div className="row">
+					<div className="col-md-3">
+							<Jafar
+								label="ایمیل"
+								value={this.state.value.email}
+								isRequierd={true}
+								//	 pattern={AppInputRegex.email}
+								//type="email"
+								pattern="email"
+								placeholder="a.hasani@gmail.com"
+								onChange={(v: string) => {
+									this.setState({
+										...this.state,
+										value: v,
+									});
+								}}
+								
+
+							/>
+						</div>
+						<div className="col-md-3">
+							<Jafar
+								label="نام خانوادگی"
+								value={this.state.value.lastname}
+								isRequierd={true}
+								onChange={(v: string) => {
+									this.setState({
+										...this.state,
+										value: v,
+									});
+								}}
+							/>
+						</div>
+						<div className="col-md-3">
+							<Jafar
+								label="نام"
+								pattern="number"
+								value={this.state.value.name}
+								onChange={(v: string) => {
+									console.log(v);
+									this.setState({
+										...this.state,
+										value: v,
+									});
+
+									console.log(v);
+								}}
+							/>
+						</div>
+					
+					</div>
+				</div>
+			</div>
+		);
+	}
 }
 
-export default App;
+//
+//
+//
+//
+// 						 <ConvertToDate
+// 						 value={this.state.value}
+/* 
+we have to convert timestamp to string
+*/
+// 						 />
+// 					 </div> */}
+// 						</div>
+// 					</div>
+// 				</div>
+// 			</div>
+// 		);
+// 	}
+// }
