@@ -9,8 +9,8 @@ export class App extends Component {
 			name: "",
 			lastname: "",
 			email: "",
+			timestamp:"2587382541",
 		},
-		time: 2587382541,
 		//validate: false,
 	};
 
@@ -62,7 +62,7 @@ export class App extends Component {
 				</div>
 				<div>
 					<ConvertToDate 
-					timestamp={this.state.time} />
+					timestamp={Number(this.state.value.timestamp)} />
 				</div>
 			</div>
 		);
