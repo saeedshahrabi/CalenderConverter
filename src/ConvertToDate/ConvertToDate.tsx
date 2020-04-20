@@ -1,54 +1,85 @@
 import React, { Component } from "react";
-import 'moment/locale/fa';
-// import 'moment/locale/ar';
-import moment from "moment-jalaali";
-// interface IProps {
-// 	timestamp: number;
-// }
-/** 
- * value dar App string tarif shode ast va bayad
- *  noe an ra taghir be numbet daham ta be onvane props estefade konam.pas baresi bishtar
- */
-export default class ConvertToDate extends Component {
-	state = {
-		timestamp: 87991199,
-	};
+import "moment/locale/fa";
+import 'moment/locale/ar';
+import moment, { months } from "moment-jalaali";
+
+interface IProps {
+	timestamp: number;
+}
+
+export default class ConvertToDate extends Component<IProps> {
+	
 
 	getTimestampToDatejalaali = (timestamp: number) => {
-		//moment.loadPersian({dialect: 'persian-modern',usePersianDigits: true})
-		moment.loadPersian({ usePersianDigits: true });
+		 
+
 		return moment(timestamp * 1000).format("jYYYY/jM/jD");
-		return moment(timestamp * 1000)
-			.locale("fa")
-			.format("jYYYY/jMMM/jD"); //13/مهر/1350
 	};
 
 	getTimestampToDateGregorian = (timestamp: number) => {
-		return moment(timestamp * 1000).format("YYYY/MM/DD");
+		return moment(timestamp * 1000).locale("en").format("YYYY/MM/DD");
 	};
 	getYearjalaali = (timestamp: number) => {
-		return moment(timestamp * 1000).format("jYYYY");}
-		
+		return moment(timestamp * 1000).format("jYYYY");
+	};
 
 	getYearGregorian = (timestamp: number) => {
-		return moment(timestamp * 1000).format("YYYY");};
+		return moment(timestamp * 1000).format("YYYY");
+	};
 
 	getMonthjalaali = (timestamp: number) => {
-		moment.loadPersian({ usePersianDigits: true });
+	// const months=["فروردین",
+	// "اردیبهشت",
+	// "خرداد",
+	// "تیر",
+	// "مرداد ",
+	// "شهریور",
+	// "مهر",
+	// "آبان",
+	// " آذر",
+	// "دی",
+	// "بهمن ",
+	// "اسفند",
+	// ]
+	moment.loadPersian({ usePersianDigits: true });
+	/* 
+	اگر کد بالا را نزارم انگلیسی می آورد
+	*/
 		return moment(timestamp * 1000)
 			.locale("fa")
-			.format("jMMM")
-	
+			.format("jMMM");
+			/* 
+			اگر از این روش استفاده کنم اردیبهشت را ناقص می آورد=اردی
+			*/
+		
+		
+		// let x=moment(timestamp * 1000).jMonth()
+		// return months[x]
+		// اگر از این آرایه استفاده کنم ماه ها درست می آید
 	};
 
 	getMonthGregorian = (timestamp: number) => {
-	return	moment(timestamp * 1000)
-			.format("MMM")
+		return moment(timestamp * 1000).locale("en").format("MMM");
 	};
-/* 
+	/* 
 
 */
 	getDayjalaali(timestamp: number) {
+		const days = [
+			"یکشنبه",
+			"دوشنبه",
+			"سه شنبه",
+			"چهارشنبه",
+			" پنج شنبه",
+			"جمعه",
+			"شنبه",
+		];
+		let m = new Date(timestamp * 1000);
+		let x = m.getDay();
+		return days[x];
+		
+	}
+	getDayGregorian(timestamp: number) {
 		const days = [
 			"یکشنبه",
 			"دوشنبه",
@@ -58,33 +89,6 @@ export default class ConvertToDate extends Component {
 			"جمعه",
 			"شنبه",
 		];
-		let m = (new Date(timestamp * 1000));
-		let x =  m.getDay();
-		return days[x];
-		// return moment(timestamp * 1000)
-		// .locale("fa")
-		// .format("jD")
-	}
-	getDayGregorian(timestamp: number) {
-		 const days = 
-		//  [
-		// 	"Sunday",
-		// 	"Monday",
-		// 	"Tuesday",
-		// 	"Wednesday",
-		// 	"Thursday",
-		// 	"Friday",
-		// 	"Saturday",
-		// ];
-		[
-			"یکشنبه",
-			"دوشنبه",
-			"سه شنبه",
-			"چهارشنبه",
-			"Tپنج شنبه",
-			"جمعه",
-			"شنبه",
-		]
 		let m = new Date(timestamp * 1000);
 		console.log(m, 76543);
 		let x = m.getDay();
@@ -97,11 +101,11 @@ export default class ConvertToDate extends Component {
 				<div>
 					<div>
 						شمسی:
-						{this.getTimestampToDatejalaali(this.state.timestamp)}
+						{this.getTimestampToDatejalaali(this.props.timestamp)}
 					</div>
 					<div>
 						میلادی:
-						{this.getTimestampToDateGregorian(this.state.timestamp)}
+						{this.getTimestampToDateGregorian(this.props.timestamp)}
 					</div>
 				</div>
 
@@ -109,20 +113,20 @@ export default class ConvertToDate extends Component {
 				<br />
 				<br />
 
-				<div>سال شمسی:{this.getYearjalaali(this.state.timestamp)}</div>
+				<div>سال شمسی:{this.getYearjalaali(this.props.timestamp)}</div>
 
-				<div>ماه شمسی:{this.getMonthjalaali(this.state.timestamp)}</div>
-				<div>روز شمسی:{this.getDayjalaali(this.state.timestamp)}</div>
+				<div>ماه شمسی:{this.getMonthjalaali(this.props.timestamp)}</div>
+				<div>روز شمسی:{this.getDayjalaali(this.props.timestamp)}</div>
 				<br />
 				<br />
 				<br />
 				<h3>میلادی</h3>
 				<br />
 				<br />
-				<div>سال:{this.getYearGregorian(this.state.timestamp)}</div>
+				<div>سال:{this.getYearGregorian(this.props.timestamp)}</div>
 
-				<div>ماه:{this.getMonthGregorian(this.state.timestamp)}</div>
-				<div>روز:{this.getDayGregorian(this.state.timestamp)}</div>
+				<div>ماه:{this.getMonthGregorian(this.props.timestamp)}</div>
+				<div>روز:{this.getDayGregorian(this.props.timestamp)}</div>
 			</div>
 		);
 	}
