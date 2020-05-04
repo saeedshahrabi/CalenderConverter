@@ -1,79 +1,24 @@
 import React, { Component } from "react";
-import { Jafar } from "./app_input/jafar";
-import ConvertToDate from "./ConvertToDate/ConvertToDate";
-
-
+import "./style/style.scss";
+import Header from "./header/Header";
+import ConvertToDate from "./calender/ConverterCalender";
 export class App extends Component {
-	state = {
-		value: {
-			name: "",
-			lastname: "",
-			email: "",
-			timestamp:"2587382541",
-		},
-		//validate: false,
-	};
-
-	handlerInput(v: string) {
-		this.setState({
-			...this.state,
-			value: v,
-		});
-	}
-	render() {
-		return (
-			<div className="container">
-				<div className="container shadow">
-					<div className="row">
-						<div className="col-md-3">
-							<Jafar
-								label="ایمیل"
-								value={this.state.value.email}
-								isRequierd={true}
-								//type="email"
-								pattern="email"
-								placeholder="a.hasani@gmail.com"
-								onChange={(v: string) => {
-									this.handlerInput(v);
-								}}
-							/>
-						</div>
-						<div className="col-md-3">
-							<Jafar
-								label="نام خانوادگی"
-								value={this.state.value.lastname}
-								isRequierd={true}
-								onChange={(v: string) => {
-									this.handlerInput(v);
-								}}
-							/>
-						</div>
-						<div className="col-md-3">
-							<Jafar
-								label="نام"
-								pattern="number"
-								value={this.state.value.name}
-								onChange={(v: string) => {
-									this.handlerInput(v);
-								}}
-							/>
-						</div>
-					</div>
-				</div>
-				<div>
-					<ConvertToDate 
-					timestamp={Number(this.state.value.timestamp)} />
-				</div>
-			</div>
-		);
-	}
+  state = {
+    timestamp: 15251544515,
+  };
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        timestamp: 5111118,
+      });
+    }, 5000);
+  }
+  render() {
+    return (
+      <>
+        <Header />
+        <ConvertToDate shamsi={true} timestamp={Number(this.state.timestamp)} />
+      </>
+    );
+  }
 }
-
-// 					 </div>
-// 						</div>
-// 					</div>
-// 				</div>
-// 			</div>
-// 		);
-// 	}
-// }

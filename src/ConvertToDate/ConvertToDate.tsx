@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "moment/locale/fa";
 import 'moment/locale/ar';
-import moment, { months } from "moment-jalaali";
+import moment from "moment-jalaali";
 
 interface IProps {
 	timestamp: number;
@@ -28,34 +28,11 @@ export default class ConvertToDate extends Component<IProps> {
 	};
 
 	getMonthjalaali = (timestamp: number) => {
-	// const months=["فروردین",
-	// "اردیبهشت",
-	// "خرداد",
-	// "تیر",
-	// "مرداد ",
-	// "شهریور",
-	// "مهر",
-	// "آبان",
-	// " آذر",
-	// "دی",
-	// "بهمن ",
-	// "اسفند",
-	// ]
 	moment.loadPersian({ usePersianDigits: true });
-	/* 
-	اگر کد بالا را نزارم انگلیسی می آورد
-	*/
 		return moment(timestamp * 1000)
 			.locale("fa")
 			.format("jMMM");
-			/* 
-			اگر از این روش استفاده کنم اردیبهشت را ناقص می آورد=اردی
-			*/
-		
-		
-		// let x=moment(timestamp * 1000).jMonth()
-		// return months[x]
-		// اگر از این آرایه استفاده کنم ماه ها درست می آید
+	
 	};
 
 	getMonthGregorian = (timestamp: number) => {
